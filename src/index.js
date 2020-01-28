@@ -19,6 +19,7 @@ class MyForm extends React.Component {
     handleSubmit(event) {
         alert(`Отправленное имя: ${this.props.userName} ${this.props.age}, опция: ${this.props.option}`);
         event.preventDefault();
+        
     }
     render() {
         return (
@@ -76,14 +77,40 @@ class Verdict extends React.Component {
 
         return (     
             <div>
-                <p>Выбрана опция</p>
+                <p>Выбрана опция {option}</p>
                 <MyForm  
                     userName = {userName}
                     age = {age}
                     option = {option}
-                    stateTransform = {this.stateTransform}/>
+                    stateTransform = {this.stateTransform}
+                    />
+                <WelcomeDialog/>   
             </div>
+
         )
     }
 }
-ReactDOM.render(<Verdict />, document.getElementById("root"));
+function Dialog(props) {
+    return (
+        <FancyBorder color='blue'>
+            <h1 className="Dialog-title">{props.title}</h1>
+            <p className="Dialog-message">{props.message}</p>
+        </FancyBorder>
+    )
+}
+function FancyBorder(props) {
+    return (
+        <div className={'FancyBorder FancyBorder-'+props.color}> 
+            {props.children}
+        </div>
+    )
+}
+function WelcomeDialog(props) {
+    return (
+        <Dialog
+            title="Добро пожаловать"
+            message="Спасибо, что посетили наш космический корабль!" 
+        />
+    )
+}
+ReactDOM.render(<Verdict /> ,document.getElementById("root"));
